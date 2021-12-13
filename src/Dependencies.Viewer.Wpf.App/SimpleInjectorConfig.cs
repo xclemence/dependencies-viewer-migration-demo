@@ -47,5 +47,12 @@ namespace Dependencies.Viewer.Wpf.App
             container.Collection.Register<IAssemblyAnalyserFactory>(pluginAssemblies);
             container.Collection.Register<IAssemblyAnalyser>(pluginAssemblies);
         }
+
+        //private static void RegisterAnalyser(this Container container)
+        //{
+        //    var pluginAssemblies = AppDomain.CurrentDomain.FindPluginAssemblies("Analyser", "Dependencies.Analyser*");
+
+        //    container.Collection.Register<IAssemblyAnalyserFactory>(pluginAssemblies, Lifestyle.Singleton);
+        //}
     }
 }
