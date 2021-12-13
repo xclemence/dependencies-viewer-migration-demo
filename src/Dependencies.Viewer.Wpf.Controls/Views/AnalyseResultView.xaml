@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="Dependencies.Viewer.Wpf.Controls.Views.AnalyseResultView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dependencies.Viewer.Wpf.Controls.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:Dependencies.Viewer.Wpf.Controls.ViewConverters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="Assembly Informations" >
+                <local:AssemblyInformationsView DataContext="{Binding AssemblyResult}" Style="{DynamicResource DefaultGroupContentStyle}"/>
+            </GroupBox>
+            <GroupBox Header="Assembly Reference Statistics" Grid.Column="1" x:Name="referenceSizeControl">
+                <local:AssemblyStatisticsView DataContext="{Binding AssemblyStatisticsViewModel}" Style="{DynamicResource DefaultGroupContentStyle}"/>
+            </GroupBox>
+        </Grid>
+
+        <Grid  DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="References">
+                <local:ReferencesView DataContext="{Binding ReferencesViewModel}" Style="{DynamicResource DefaultGroupContentStyle}"/>
+            </GroupBox>
+
+            <Expander ExpandDirection="Right" VerticalAlignment="Stretch" Grid.Column="1" VerticalContentAlignment="Stretch" IsExpanded="{Binding IsErrorExpended}">
+                <Expander.Header>
+                    <StackPanel>
+                        <TextBlock Text="Errors" RenderTransformOrigin=".5,.5">
+                            <TextBlock.LayoutTransform>
+                                <RotateTransform Angle="90" />
+                            </TextBlock.LayoutTransform>
+                        </TextBlock>
+                        <materialDesign:PackIcon Kind="Dangerous" Margin="0 10 0 0" Foreground="Red" Visibility="{Binding HasError, Converter={x:Static converters:VisibilityConverter.Converter}}"/>
+                        <materialDesign:PackIcon Kind="ReportProblem" Margin="0 10 0 0" Foreground="Orange" Visibility="{Binding HasMismatch, Converter={x:Static converters:VisibilityConverter.Converter}}"/>
+                    </StackPanel>
+                </Expander.Header>
+                <Grid Background="{DynamicResource MaterialDesignPaper}">
+                    <Grid.Width>
+                        <MultiBinding Converter="{x:Static converters:SizeConverter.Converter}">
+                            <Binding ElementName="referenceSizeControl" Path="ActualWidth"/>
+                            <Binding Source="48"/>
+                        </MultiBinding>
+                    </Grid.Width>
+                    <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <local:ResultListView DataContext="{Binding ErrorLoadingViewModel}"/>
+                        <GridSplitter HorizontalAlignment="Stretch" Height="5" Grid.Row="1"/>
+                        <local:ResultListView DataContext="{Binding MismatchVersionViewModel}" Grid.Row="2"/>
+                    </Grid>
+            </Expander>
+            
+        </Grid>
+    </DockPanel>
+</UserControl>
