@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:models="clr-namespace:Dependencies.Viewer.Wpf.Controls.Models"
-             xmlns:behaviors="clr-namespace:Dependencies.Viewer.Wpf.Controls.Behaviors"
              x:Name="assemblyTreeView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -23,7 +22,6 @@
             <TreeView.Resources>
                 <Style TargetType="TreeViewItem" BasedOn="{StaticResource TestTreeViewItem}">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
-                    <Setter Property="behaviors:TreeItemSelectionBehavior.Attach" Value="True"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Assembly.IsLocalAssembly}" Value="true">
                             <Setter Property="Background" Value="LightBlue"/>

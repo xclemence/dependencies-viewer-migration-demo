@@ -10,7 +10,6 @@
              xmlns:local="clr-namespace:Dependencies.Viewer.Wpf.Controls.Views"
              xmlns:vm="clr-namespace:Dependencies.Viewer.Wpf.Controls.ViewModels"
              xmlns:converters="clr-namespace:Dependencies.Viewer.Wpf.Controls.ViewConverters"
-             xmlns:behaviors="clr-namespace:Dependencies.Viewer.Wpf.Controls.Behaviors"
              x:Name="analyserView"
              AllowDrop="True"
              mc:Ignorable="d" 
@@ -33,14 +32,6 @@
                                              SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                         <dragablz:TabablzControl.ItemContainerStyle>
                             <Style TargetType="dragablz:DragablzItem" BasedOn="{StaticResource {x:Type dragablz:DragablzItem}}">
-                                <Setter Property="behaviors:InputBindingBehavior.InputBindings">
-                                    <Setter.Value>
-                                        <InputBindingCollection >
-                                            <MouseBinding Gesture="MiddleClick" 
-                                                           Command="{x:Static dragablz:TabablzControl.CloseItemCommand}"/>
-                                        </InputBindingCollection>
-                                    </Setter.Value>
-                                </Setter>
                             </Style>
                         </dragablz:TabablzControl.ItemContainerStyle>
 
