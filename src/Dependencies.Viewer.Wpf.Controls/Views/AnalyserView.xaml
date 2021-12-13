@@ -4,8 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:command="http://www.galasoft.ch/mvvmlight"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
@@ -24,25 +22,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="DragOver">
-            <command:EventToCommand Command="{Binding OnDragOverCommand}"
-                                    PassEventArgsToCommand="True" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="Drop">
-            <command:EventToCommand Command="{Binding OnDropCommand}"
-                                    PassEventArgsToCommand="True" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="DragEnter">
-            <command:EventToCommand Command="{Binding OnDragEnterCommand}"
-                                    PassEventArgsToCommand="True" />
-        </i:EventTrigger>
-
-        <i:EventTrigger EventName="DragLeave">
-            <command:EventToCommand Command="{Binding OnDragLeaveCommand}"
-                                    PassEventArgsToCommand="True" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+ 
     <Grid x:Name="mainGrid">
         <Grid>
             <Grid IsEnabled="{Binding IsBusy, Converter={x:Static converters:InverseBooleanConverter.Converter} }">

@@ -8,16 +8,15 @@ using System.Windows;
 using System.Windows.Input;
 using Dependencies.Analyser.Base;
 using Dependencies.Analyser.Base.Models;
+using Dependencies.Viewer.Wpf.Controls.Base;
 using Dependencies.Viewer.Wpf.Controls.Extensions;
 using Dragablz;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 
 namespace Dependencies.Viewer.Wpf.Controls.ViewModels
 {
-    public class AnalyserViewModel : ViewModelBase
+    public class AnalyserViewModel : ObservableObject
     {
         private const string OpenFileFilter =
             "Software (*.exe)|*.exe|" +
@@ -48,19 +47,19 @@ namespace Dependencies.Viewer.Wpf.Controls.ViewModels
             SettingsViewModel = settingsViewModel;
             MessageQueue = messageQueue;
 
-            SettingsCommand = new RelayCommand(() => IsSettingsOpen = true);
-            CloseCommand = new RelayCommand(() => Application.Current.Shutdown());
-            OpenFileCommand = new RelayCommand(async () => await BusyAction(OpenFileAsync), () => !IsBusy);
-            OnDragOverCommand = new RelayCommand<DragEventArgs>(OnDragOver);
-            OnDropCommand = new RelayCommand<DragEventArgs>(async (x) => await BusyAction(async () => await OnDrop(x)), !IsBusy);
+            SettingsCommand = new Command(() => IsSettingsOpen = true);
+            CloseCommand = new Command(() => Application.Current.Shutdown());
+            OpenFileCommand = new Command(async () => await BusyAction(OpenFileAsync), () => !IsBusy);
+            OnDragOverCommand = new Command<DragEventArgs>(OnDragOver);
+            OnDropCommand = new Command<DragEventArgs>(async (x) => await BusyAction(async () => await OnDrop(x)), (X) => !IsBusy);
 
-            OnDragEnterCommand = new RelayCommand<DragEventArgs>((x) => IsDragFile = true, CanDrag);
-            OnDragLeaveCommand = new RelayCommand<DragEventArgs>((x) => IsDragFile = false, CanDrag);
+            OnDragEnterCommand = new Command<DragEventArgs>((x) => IsDragFile = true, CanDrag);
+            OnDragLeaveCommand = new Command<DragEventArgs>((x) => IsDragFile = false, CanDrag);
 
-            ImportAnalyseCommand = new RelayCommand(async () => await BusyAction(ImportResultsAsync), () => !IsBusy);
-            ExportSelectedAnalyseCommand = new RelayCommand(async () => await BusyAction(ExportResultsAsync), () => !IsBusy && SelectedItem?.AssemblyResult != null);
+            ImportAnalyseCommand = new Command(async () => await BusyAction(ImportResultsAsync), () => !IsBusy);
+            ExportSelectedAnalyseCommand = new Command(async () => await BusyAction(ExportResultsAsync), () => !IsBusy && SelectedItem?.AssemblyResult != null);
 
-            CloseResultCommand = new RelayCommand<AnalyseResultViewModel>(CloseResult);
+            CloseResultCommand = new Command<AnalyseResultViewModel>(CloseResult);
 
             GlobalCommand.OpenAssemblyAction = AddAssemblyResult;
         }

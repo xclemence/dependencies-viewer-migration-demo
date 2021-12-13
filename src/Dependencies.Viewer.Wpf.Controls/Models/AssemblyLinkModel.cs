@@ -1,7 +1,7 @@
 ﻿using System;
 using Dependencies.Analyser.Base.Models;
+using Dependencies.Viewer.Wpf.Controls.Base;
 using Dependencies.Viewer.Wpf.Controls.Extensions;
-using GalaSoft.MvvmLight;
 
 namespace Dependencies.Viewer.Wpf.Controls.Models
 {
