@@ -52,7 +52,7 @@ namespace Dependencies.Viewer.Wpf.App
         //{
         //    var pluginAssemblies = AppDomain.CurrentDomain.FindPluginAssemblies("Analyser", "Dependencies.Analyser*");
 
-        //    container.Collection.Register<IAssemblyAnalyserFactory>(pluginAssemblies, Lifestyle.Singleton);
+        //    container.Collection.Register<IAssemblyAnalyserFactory>(pluginAssemblies);
         //}
     }
 }
