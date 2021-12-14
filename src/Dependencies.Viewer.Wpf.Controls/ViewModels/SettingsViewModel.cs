@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight;
 
 namespace Dependencies.Viewer.Wpf.Controls.ViewModels
 {
-    public class SettingsViewModel : ViewModelBase
+    public class SettingsViewModel : ObservableObject
     {
         public SettingsViewModel(AnalyserProvider analyserProvider, ISettingProvider settingProvider)
         {
