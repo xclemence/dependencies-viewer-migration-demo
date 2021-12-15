@@ -1,6 +1,26 @@
-# Dependencies.Viewer
+# Migration step
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+- Remove multi target build option on **PeNet** projet
+- Start migration
 
-[![Build status](https://ci.appveyor.com/api/projects/status/uc5u4b9slj0q2sv4/branch/master?svg=true)](https://ci.appveyor.com/project/iceman63/dependencies-viewer/branch/master)
+```
+upgrade-assistant upgrade --ignore-unsupported-features --skip-backup -e Dependencies.Viewer.Wpf.App.csproj --non-interactive Dependencies.Viewer.sln
+upgrade-assistant upgrade --ignore-unsupported-features --skip-backup -e Dependencies.Analyser.Mono.csproj --non-interactive Dependencies.Viewer.sln
+```
+
+- Cli/C++ migration
+  - remove .Net Framework references
+  - Set Configuration Properties -> Advanced -> Common Language Runtime Support to **.NET Core Runtime Support**
+  - Apply
+  - Set Configuration Properties -> Advanced -> .NET Core Target Framework to **net6.0**
+  - Set **Dependencies.Analyser.Native** Target framework to **net6.0**
+
+- Remove MvvmLightLibs nuget package
+  - Fix issues
+
+- Fix assembly loading issue
+
+- Fix missing method issue
+  -  Set **Dependencies.Analyser.Mono** Target framework to **net6.0**
+
 
