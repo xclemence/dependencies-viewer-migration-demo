@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Dependencies.Analyser.Base;
-using GalaSoft.MvvmLight;
+using Dependencies.Viewer.Wpf.Controls.Base;
 
 namespace Dependencies.Viewer.Wpf.Controls.ViewModels
 {

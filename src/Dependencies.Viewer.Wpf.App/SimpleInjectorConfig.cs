@@ -36,23 +36,23 @@ namespace Dependencies.Viewer.Wpf.App
             //Container.Verify();
         }
 
-        private static void RegisterAnalyser(Container container)
-        {
-            string pluginDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins");
-
-            var files = new DirectoryInfo(pluginDirectory).GetFiles("Dependencies.Analyser*", SearchOption.AllDirectories);
-
-            var pluginAssemblies = files.Where(x => x.Extension == ".dll").Select(x => Assembly.Load(AssemblyName.GetAssemblyName(x.FullName)));
-
-            container.Collection.Register<IAssemblyAnalyserFactory>(pluginAssemblies);
-            container.Collection.Register<IAssemblyAnalyser>(pluginAssemblies);
-        }
-
-        //private static void RegisterAnalyser(this Container container)
+        //private static void RegisterAnalyser(Container container)
         //{
-        //    var pluginAssemblies = AppDomain.CurrentDomain.FindPluginAssemblies("Analyser", "Dependencies.Analyser*");
+        //    string pluginDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins");
+
+        //    var files = new DirectoryInfo(pluginDirectory).GetFiles("Dependencies.Analyser*", SearchOption.AllDirectories);
+
+        //    var pluginAssemblies = files.Where(x => x.Extension == ".dll").Select(x => Assembly.Load(AssemblyName.GetAssemblyName(x.FullName)));
 
         //    container.Collection.Register<IAssemblyAnalyserFactory>(pluginAssemblies);
+        //    container.Collection.Register<IAssemblyAnalyser>(pluginAssemblies);
         //}
+
+        private static void RegisterAnalyser(this Container container)
+        {
+            var pluginAssemblies = AppDomain.CurrentDomain.FindPluginAssemblies("Analyser", "Dependencies.Analyser*");
+
+            container.Collection.Register<IAssemblyAnalyserFactory>(pluginAssemblies);
+        }
     }
 }
